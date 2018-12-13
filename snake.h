@@ -33,23 +33,39 @@
 #define START_ROW ((MAXROW + 1) / 2)
 
 #define DEFAULT_DELAY 200000
-#define DEFAULT_KEYS  {'o', 'p', 'a', 'z', 'f', 'j', 'q'}
+#define DEFAULT_KEYS1p  {'a', 'd', 'w', 's', 'q', 'e', 'z'}
+#define DEFAULT_KEYS2p  {'j', 'l', 'i', 'k', 'u', 'o', 'z'}
 
-typedef enum { LEFT=0, RIGHT, UP, DOWN, LEFT_TURN, RIGHT_TURN, QUIT, NUM_KEYS } direction_t;
+typedef enum { LEFT1p=0, RIGHT1p, UP1p, DOWN1p, LEFT_TURN1p, RIGHT_TURN1p, QUIT1p, NUM_KEYS1p } direction_1p;
+typedef enum { LEFT2p=0, RIGHT2p, UP2p, DOWN2p, LEFT_TURN2p, RIGHT_TURN2p, QUIT2p, NUM_KEYS2p } direction_2p;
 
 typedef struct
 {
    int row, col;
-} snake_segment_t;
+} snake_segment_1p;
+
+typedef struct
+{
+   int row, col;
+} snake_segment_2p;
 
 typedef struct
 {
    unsigned int    speed;
-   direction_t     dir;
+   direction_1p     dir;
 
    int             len;
-   snake_segment_t body[100];
-} snake_t;
+   snake_segment_1p body[100];
+} snake_1p;
+
+typedef struct
+{
+   unsigned int    speed;
+   direction_2p     dir;
+
+   int             len;
+   snake_segment_2p body[100];
+} snake_2p;
 
 typedef struct
 {
