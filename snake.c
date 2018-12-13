@@ -135,7 +135,7 @@ void setup_level(screen_t *screen, snake_1p *snake, snake_2p *snake2, int level)
    if (1 == level)
    {
       screen->score = 0;
-      screen->obstacles = 4;
+      screen->obstacles = 50;
       screen->level = 1;
       snake->speed = 14;
       snake->dir = RIGHT1p;
@@ -236,7 +236,7 @@ void setup_level(screen_t *screen, snake_1p *snake, snake_2p *snake2, int level)
    //gotoxy (3, 1);
    //printf ("h:Help");
    gotoxy(30, 1);
-   printf("[ Micro Snake v%s ]", VERSION);
+   printf("[ Hongik Snake v%s ]", VERSION);
 }
 
 void move(snake_1p *snake, char keys[], char key)
@@ -573,18 +573,14 @@ int collide_self2(snake_2p *snake)
    return 0;
 }
 
-int collision(snake_1p *snake, screen_t *screen)
+int collision(snake_1p *snake, snake_2p *snake2, screen_t *screen)
 {
-   return collide_walls(snake) ||
-      collide_object(snake, screen, CACTUS) ||
-      collide_self(snake);
-}
-
-int collision2(snake_2p *snake, screen_t *screen)
-{
-   return collide_walls2(snake) ||
-      collide_object2(snake, screen, CACTUS) ||
-      collide_self2(snake);
+	return collide_walls(snake) ||
+		collide_object(snake, screen, CACTUS) ||
+		collide_self(snake) ||
+		collide_walls2(snake2) ||
+		collide_self2(snake2) ||
+		collide_object2(snake2, screen, GOLD);
 }
 
 
@@ -647,7 +643,7 @@ int main(void)
          /* keeps cursor flashing in one place instead of following snake */
          gotoxy(1, 1);
 
-         if (collision(&snake, &screen))
+         if (collision(&snake,&snake2,&screen))
          {
             keypress = keys[QUIT1p];
             break;
